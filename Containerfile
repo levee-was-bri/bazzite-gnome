@@ -1,4 +1,4 @@
-FROM ghcr.io/ublue-os/silverblue-main:latest
+FROM ghcr.io/ublue-os/bazzite-gnome:latest
 
 ## Other possible base images include:
 # FROM ghcr.io/ublue-os/bazzite:stable
@@ -14,6 +14,8 @@ FROM ghcr.io/ublue-os/silverblue-main:latest
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
 COPY build.sh /tmp/build.sh
+COPY cosign.pub /tmp/cosign.pub
+COPY policy.json /tmp/policy.json
 
 RUN mkdir -p /var/lib/alternatives && \
     /tmp/build.sh && \
