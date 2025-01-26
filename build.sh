@@ -10,9 +10,7 @@ set -ouex pipefail
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
 # this installs a package from fedora repos
-dnf install -y tmux tlp qemu qemu-kvm virt-manager fish neovim python3-neovim swappy breeze-icon-theme breeze-gtk plasma-breeze
-
-dnf remove -y tuned tuned-ppd
+dnf install -y tmux qemu qemu-kvm virt-manager fish neovim python3-neovim swappy breeze-icon-theme breeze-gtk plasma-breeze
 
 # Use a COPR Example:
 #
@@ -25,8 +23,6 @@ dnf remove -y tuned tuned-ppd
 
 systemctl enable podman.socket
 systemctl enable libvirtd
-systemctl enable tlp.service
-systemctl mask systemd-rfkill.service systemd-rfkill.socket
 
 # Signing
 mkdir -p /etc/containers
