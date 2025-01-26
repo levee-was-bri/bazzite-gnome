@@ -10,7 +10,7 @@ set -ouex pipefail
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
 # this installs a package from fedora repos
-dnf install -y tmux 
+dnf install -y tmux qemu qemu-kvm virt-manager fish neovim python3-neovim swappy breeze-icon-theme breeze-gtk plasma-breeze
 
 # Use a COPR Example:
 #
@@ -22,3 +22,20 @@ dnf install -y tmux
 #### Example for enabling a System Unit File
 
 systemctl enable podman.socket
+systemctl enable libvirtd
+
+# Signing
+mkdir -p /etc/containers
+mkdir -p /etc/pki/containers
+mkdir -p /etc/containers/registries.d/
+
+cp /tmp/policy.json /etc/containers/policy.json
+cp /tmp/cosign.pub /etc/pki/containers/bazzite-gnome.pub
+tee /etc/containers/registries.d/bazzite-gnome.yaml <<EOF
+docker:
+  ghcr.io/levee-was-bri/bazzite-gnome:
+    use-sigstore-attachments: true
+EOF
+
+mkdir -p /usr/etc/containers/
+cp /etc/containers/policy.json /usr/etc/containers/policy.json
